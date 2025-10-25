@@ -9,8 +9,8 @@ apply plugin: 'eclipse-wtp'
 
 group = 'org.springframework.session'
 
-sourceCompatibility = 1.5
-targetCompatibility = 1.5
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 ext.springIoVersion = project.hasProperty('platformVersion') ? platformVersion : '1.1.0.BUILD-SNAPSHOT'
 
