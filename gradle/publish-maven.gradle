@@ -1,10 +1,14 @@
-apply plugin: 'propdeps-maven'
+// 注释掉无法访问的Spring私有插件
+// apply plugin: 'propdeps-maven'
 
+// 注释掉install任务，因为maven插件没有应用
+/*
 install {
     repositories.mavenInstaller {
         customizePom(pom, project)
     }
 }
+*/
 
 def customizePom(pom, gradleProject) {
     pom.whenConfigured { generatedPom ->

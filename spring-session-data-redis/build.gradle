@@ -1,7 +1,8 @@
 apply from: JAVA_GRADLE
 apply from: MAVEN_GRADLE
 
-apply plugin: 'spring-io'
+// 注释掉无法访问的Spring私有插件
+// apply plugin: 'spring-io'
 
 description = "Aggregator for Spring Session and Spring Data Redis"
 
@@ -11,5 +12,6 @@ dependencies {
             "redis.clients:jedis:$jedisVersion",
             "org.apache.commons:commons-pool2:$commonsPoolVersion"
 
-    springIoVersions "io.spring.platform:platform-versions:${springIoVersion}@properties"
+    // 注释掉无法访问的Spring私有依赖
+    // springIoVersions "io.spring.platform:platform-versions:${springIoVersion}@properties"
 }

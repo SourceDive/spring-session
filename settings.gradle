@@ -12,3 +12,4 @@ include 'samples:websocket'
 
 include 'spring-session'
 include 'spring-session-data-redis'
+include 'my-debug-module'

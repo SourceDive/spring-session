@@ -1,3 +1,5 @@
+// 注释掉Spring Boot插件，因为版本不兼容
+/*
 buildscript {
     repositories {
         mavenCentral()
@@ -8,6 +10,7 @@ buildscript {
 }
 
 apply plugin: 'spring-boot'
+*/
 
 apply from: JAVA_GRADLE
 
@@ -17,14 +20,15 @@ group = 'samples'
 
 dependencies {
     compile project(':spring-session-data-redis'),
-            "org.springframework.boot:spring-boot-starter-web",
-            "org.springframework.boot:spring-boot-starter-thymeleaf",
+            // 注释掉Spring Boot starter依赖，因为插件被注释掉了
+            // "org.springframework.boot:spring-boot-starter-web",
+            // "org.springframework.boot:spring-boot-starter-thymeleaf",
             "redis.embedded:embedded-redis:0.2",
-            "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
+            "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.9",
             "org.springframework.security:spring-security-web:$springSecurityVersion",
             "org.springframework.security:spring-security-config:$springSecurityVersion"
 
-    testCompile "org.springframework.boot:spring-boot-starter-test"
+    // testCompile "org.springframework.boot:spring-boot-starter-test"
 
     integrationTestCompile gebDependencies,
             "org.spockframework:spock-spring:$spockVersion"

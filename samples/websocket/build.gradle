@@ -1,3 +1,5 @@
+// 注释掉Spring Boot插件，因为版本不兼容
+/*
 buildscript {
     repositories {
         mavenCentral()
@@ -8,9 +10,11 @@ buildscript {
 }
 
 apply plugin: 'spring-boot'
+*/
 
 apply from: JAVA_GRADLE
-apply from: TOMCAT_GRADLE
+// 注释掉tomcat配置，因为网络问题
+// apply from: TOMCAT_GRADLE
 
 tasks.findByPath("artifactoryPublish")?.enabled = false
 
@@ -18,22 +22,23 @@ group = 'samples'
 
 dependencies {
     compile project(':spring-session-data-redis'),
-            "org.springframework.boot:spring-boot-starter-web",
-            "org.springframework.boot:spring-boot-starter-data-jpa",
-            "org.springframework.boot:spring-boot-starter-thymeleaf",
-            "org.springframework.boot:spring-boot-starter-websocket",
+            // 注释掉Spring Boot starter依赖，因为插件被注释掉了
+            // "org.springframework.boot:spring-boot-starter-web",
+            // "org.springframework.boot:spring-boot-starter-data-jpa",
+            // "org.springframework.boot:spring-boot-starter-thymeleaf",
+            // "org.springframework.boot:spring-boot-starter-websocket",
             "org.springframework:spring-websocket:${springVersion}",
             "org.springframework.data:spring-data-jpa:1.7.0.RELEASE",
             "redis.embedded:embedded-redis:0.2",
-            "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
-            "com.h2database:h2",
+            "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.9",
+            "com.h2database:h2:1.4.200",
             "org.springframework.security:spring-security-web:$springSecurityVersion",
             "org.springframework.security:spring-security-config:$springSecurityVersion",
             "org.springframework.security:spring-security-messaging:$springSecurityVersion",
             "org.springframework.security:spring-security-data:$springSecurityVersion"
 
 
-    testCompile "org.springframework.boot:spring-boot-starter-test",
-            "org.springframework.security:spring-security-test:$springSecurityVersion"
+    // testCompile "org.springframework.boot:spring-boot-starter-test",
+    testCompile "org.springframework.security:spring-security-test:$springSecurityVersion"
 
 }

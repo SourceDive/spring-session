@@ -2,9 +2,10 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'javadocHotfix'
 apply plugin: 'eclipse-wtp'
-apply plugin: 'propdeps'
-apply plugin: 'propdeps-idea'
-apply plugin: 'propdeps-eclipse'
+// 注释掉无法访问的Spring私有插件
+// apply plugin: 'propdeps'
+// apply plugin: 'propdeps-idea'
+// apply plugin: 'propdeps-eclipse'
 
 group = 'org.springframework.session'
 
@@ -34,7 +35,8 @@ ext.jstlDependencies = [
 repositories {
     mavenCentral()
     maven { url 'http://clojars.org/repo' }
-    maven { url 'https://repo.spring.io/libs-snapshot' }
+    // 注释掉无法访问的Spring私有仓库
+    // maven { url 'https://repo.spring.io/libs-snapshot' }
 }
 
 configurations.all {
@@ -46,6 +48,9 @@ configurations.all {
 }
 // Integration test setup
 configurations {
+    // 手动定义配置，因为propdeps插件被注释掉了
+    optional
+    provided
     integrationTestCompile {
         extendsFrom testCompile, optional, provided
     }
@@ -81,6 +86,9 @@ eclipse {
     }
 }
 
+// 注释掉idea配置，因为idea插件可能没有应用
+/*
 project.idea.module {
     scopes.TEST.plus += [project.configurations.integrationTestRuntime]
 }
+*/

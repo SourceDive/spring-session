@@ -1,10 +1,14 @@
 apply from: JAVA_GRADLE
-apply from: TOMCAT_GRADLE
+// 注释掉tomcat配置，因为网络问题
+// apply from: TOMCAT_GRADLE
 
 tasks.findByPath("artifactoryPublish")?.enabled = false
+// 注释掉sonarRunner配置，因为插件被注释掉了
+/*
 sonarRunner {
     skipProject = true
 }
+*/
 
 dependencies {
     compile project(':spring-session-data-redis'),
@@ -15,7 +19,7 @@ dependencies {
             "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
             jstlDependencies
 
-    providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
+    provided "javax.servlet:javax.servlet-api:$servletApiVersion"
 
     testCompile 'junit:junit:4.11'
 

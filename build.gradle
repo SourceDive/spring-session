@@ -1,13 +1,18 @@
 buildscript {
     repositories {
-        maven { url "https://repo.spring.io/plugins-release" }
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url "https://repo1.maven.org/maven2" }
     }
     dependencies {
         classpath("org.gradle.api.plugins:gradle-tomcat-plugin:1.2.3")
-        classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
-        classpath("org.springframework.build.gradle:spring-io-plugin:0.0.3.RELEASE")
+        // 注释掉无法访问的Spring私有插件
+        // classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
+        // classpath("org.springframework.build.gradle:spring-io-plugin:0.0.3.RELEASE")
         classpath('me.champeau.gradle:gradle-javadoc-hotfix-plugin:0.1')
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.2'
+        // 注释掉sonar插件，因为版本兼容性问题
+        // classpath 'org.sonarqube.gradle:gradle-sonarqube-plugin:1.2'
     }
 }
 
@@ -22,10 +27,12 @@ ext.releaseBuild = version.endsWith('RELEASE')
 ext.snapshotBuild = version.endsWith('SNAPSHOT')
 ext.milestoneBuild = !(releaseBuild || snapshotBuild)
 
-apply plugin: 'sonar-runner'
+// 注释掉sonar-runner插件，因为版本兼容性问题
+// apply plugin: 'sonar-runner'
 apply plugin: 'base'
 
-
+// 注释掉sonar配置
+/*
 sonarRunner {
     sonarProperties {
         property "sonar.java.coveragePlugin", "jacoco"
@@ -39,6 +46,7 @@ sonarRunner {
         property "sonar.java.coveragePlugin", "jacoco"
     }
 }
+*/
 
 task configDocsZip(dependsOn: [':docs:asciidoctor',':spring-session:javadoc']) << {
     project.tasks.docsZip.from(project(':docs').asciidoctor) {

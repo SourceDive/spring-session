@@ -1,12 +1,16 @@
 apply from: JAVA_GRADLE
 apply from: MAVEN_GRADLE
 
-apply plugin: 'spring-io'
+// 注释掉无法访问的Spring私有插件
+// apply plugin: 'spring-io'
 
 description = "Spring Session"
 
+// 注释掉maven相关的配置，因为maven插件没有应用
+/*
 project.conf2ScopeMappings.addMapping(MavenPlugin.TEST_COMPILE_PRIORITY + 1, project.configurations.getByName("integrationTestCompile"), Conf2ScopeMappingContainer.TEST)
 project.conf2ScopeMappings.addMapping(MavenPlugin.TEST_COMPILE_PRIORITY + 2, project.configurations.getByName("integrationTestRuntime"), Conf2ScopeMappingContainer.TEST)
+*/
 check.dependsOn integrationTest
 
 configurations {
@@ -31,7 +35,8 @@ dependencies {
 
     jacoco "org.jacoco:org.jacoco.agent:0.7.2.201409121644:runtime"
 
-    springIoVersions "io.spring.platform:platform-versions:${springIoVersion}@properties"
+    // 注释掉无法访问的Spring私有依赖
+    // springIoVersions "io.spring.platform:platform-versions:${springIoVersion}@properties"
 }
 
 ext.javadocLinks = [
