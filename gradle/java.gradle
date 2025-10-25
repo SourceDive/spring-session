@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
-apply plugin: 'javadocHotfix'
+// 注释掉javadocHotfix插件，Gradle 6.8.3已经修复了javadoc问题
+// apply plugin: 'javadocHotfix'
 apply plugin: 'eclipse-wtp'
 // 注释掉无法访问的Spring私有插件
 // apply plugin: 'propdeps'
@@ -70,7 +71,7 @@ sourceSets {
 }
 
 task integrationTest(type: Test, dependsOn: jar) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
     logging.captureStandardOutput(LogLevel.INFO)
     classpath = sourceSets.integrationTest.runtimeClasspath
     maxParallelForks = 1

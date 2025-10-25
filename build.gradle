@@ -9,7 +9,8 @@ buildscript {
         // 注释掉无法访问的Spring私有插件
         // classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
         // classpath("org.springframework.build.gradle:spring-io-plugin:0.0.3.RELEASE")
-        classpath('me.champeau.gradle:gradle-javadoc-hotfix-plugin:0.1')
+        // 注释掉gradle-javadoc-hotfix-plugin，Gradle 6.8.3已经修复了javadoc问题
+        // classpath('me.champeau.gradle:gradle-javadoc-hotfix-plugin:0.1')
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.2'
         // 注释掉sonar插件，因为版本兼容性问题
         // classpath 'org.sonarqube.gradle:gradle-sonarqube-plugin:1.2'
@@ -48,12 +49,14 @@ sonarRunner {
 }
 */
 
-task configDocsZip(dependsOn: [':docs:asciidoctor',':spring-session:javadoc']) << {
-    project.tasks.docsZip.from(project(':docs').asciidoctor) {
-        into('reference')
-    }
-    project.tasks.docsZip.from(project(':spring-session').javadoc) {
-        into('api')
+task configDocsZip(dependsOn: [':docs:asciidoctor',':spring-session:javadoc']) {
+    doLast {
+        project.tasks.docsZip.from(project(':docs').asciidoctor) {
+            into('reference')
+        }
+        project.tasks.docsZip.from(project(':spring-session').javadoc) {
+            into('api')
+        }
     }
 }
 
