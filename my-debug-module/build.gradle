@@ -1,0 +1,71 @@
+apply plugin: 'java'
+
+description = "My Debug Module for Spring Session Source Code Reading"
+
+// 手动定义provided配置
+configurations {
+    provided
+}
+
+dependencies {
+    // 依赖Spring Session核心模块
+    compile project(':spring-session')
+    
+    // 添加Spring相关依赖
+    compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
+    
+    // 添加Servlet API
+    provided "javax.servlet:javax.servlet-api:$servletApiVersion"
+    
+    // 添加测试依赖
+    testCompile 'junit:junit:4.11'
+    testCompile "org.springframework:spring-test:$springVersion"
+    testCompile 'org.mockito:mockito-core:1.9.5'
+}
+
+// 设置源码兼容性
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// 添加运行任务 - 使用Gradle 4.5兼容的配置
+task runSimpleDemo(type: JavaExec) {
+    group = 'application'
+    description = '运行SimpleSessionDemo演示程序'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'SimpleSessionDemo'
+}
+
+task runSpringSessionDemo(type: JavaExec) {
+    group = 'application'
+    description = '运行SpringSessionDebugDemo演示程序'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'SpringSessionDebugDemo'
+}
+
+// 配置IDEA模块，确保依赖正确解析
+apply plugin: 'idea'
+
+idea {
+    module {
+        // 确保provided依赖在IDEA中正确配置
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
+
+// 添加调试任务
+task debugSimpleDemo(type: JavaExec) {
+    group = 'application'
+    description = '调试SimpleSessionDemo演示程序'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'SimpleSessionDemo'
+    jvmArgs = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005']
+}
+
+task debugSpringSessionDemo(type: JavaExec) {
+    group = 'application'
+    description = '调试SpringSessionDebugDemo演示程序'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'SpringSessionDebugDemo'
+    jvmArgs = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005']
+}
